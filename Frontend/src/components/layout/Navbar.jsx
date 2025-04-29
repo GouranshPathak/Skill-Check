@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../contexts/AuthContext'
-import { useTheme } from '../../contexts/ThemeContext'
-import { motion } from 'framer-motion'
-import { Bars3Icon, XMarkIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
+import { motion } from 'framer-motion';
+import { Bars3Icon, XMarkIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 
 const Navbar = ({ onMenuToggle, isOpen }) => {
-  const { currentUser, signOut } = useAuth()
-  const { isDarkMode, toggleTheme } = useTheme()
+  const { currentUser, signOut } = useAuth();
+  const { isDarkMode, toggleTheme } = useTheme();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-neutral-900 shadow-sm">
@@ -79,9 +79,20 @@ const Navbar = ({ onMenuToggle, isOpen }) => {
               <div className="ml-4 flex items-center md:ml-6">
                 <Link 
                   to="/profile" 
-                  className="hidden md:block ml-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"
+                  className="hidden md:flex items-center space-x-2 text-sm text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"
                 >
-                  Profile
+                  <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+                    {currentUser.profilePicture ? (
+                      <img
+                        src={currentUser.profilePicture}
+                        alt="Profile"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-gray-500 text-xs">No Img</span>
+                    )}
+                  </div>
+                  <span>Profile</span>
                 </Link>
                 <button 
                   onClick={signOut} 
@@ -119,7 +130,7 @@ const Navbar = ({ onMenuToggle, isOpen }) => {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
